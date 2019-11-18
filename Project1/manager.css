@@ -1,0 +1,9 @@
+#reimbursement-table {
+    width: 75%;
+    margin: auto;
+    margin-top: 1em;
+}
+
+#reimbursement-table td {
+    border: 1px solid #000000;
+}
