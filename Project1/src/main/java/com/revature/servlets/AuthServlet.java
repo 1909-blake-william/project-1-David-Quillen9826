@@ -36,6 +36,7 @@ public class AuthServlet extends HttpServlet {
 		if ("/project1/auth/login".equals(req.getRequestURI())) {
 			ObjectMapper om = new ObjectMapper();
 			User credentials = (User) om.readValue(req.getReader(), User.class);
+			System.out.println(credentials);
 			User loggedInUser = userDao.findByUsernameAndPassword(credentials.getUsername(), credentials.getPassword());
 			if (loggedInUser == null) {
 				resp.setStatus(401); // Unauthorized status code
@@ -46,6 +47,11 @@ public class AuthServlet extends HttpServlet {
 				resp.getWriter().write(om.writeValueAsString(loggedInUser));
 				return;
 			}
+		} else if ("/project1/auth/logout".equals(req.getRequestURI())) {
+			System.out.println("logged out");
+			resp.setStatus(201); // success code
+			req.getSession().invalidate();
+			return;
 		}
 	}
 

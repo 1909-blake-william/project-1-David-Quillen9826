@@ -18,12 +18,19 @@ public class UserDaoSQL implements UserDao {
 
 	User extractUser(ResultSet rs) throws SQLException {
 		int id = rs.getInt("ers_user_id");
+		System.out.println("1");
 		String rsUsername = rs.getString("ers_username");
+		System.out.println("2");
 		String rsPassword = rs.getString("ers_password");
+		System.out.println("3");
 		String rsFirstName = rs.getString("user_first_name");
-		String rsLastName = rs.getString("username");
+		System.out.println("4");
+		String rsLastName = rs.getString("ers_last_name");
+		System.out.println("5");
 		String rsEmail = rs.getString("user_email");
+		System.out.println("6");
 		int role = rs.getInt("user_role_id");
+		System.out.println("7");
 		return new User(id, rsUsername, rsPassword, rsFirstName, rsLastName, rsEmail, role);
 	}
 
@@ -83,12 +90,11 @@ public class UserDaoSQL implements UserDao {
 		log.debug("attempting to find user by credentials from DB");
 		try (Connection c = ConnectionUtil.getConnection()) {
 			log.debug("connection check");
-			String sql = "SELECT * FROM ers_users WHERE username = ? AND password = ?";
-
+			String sql = "SELECT * FROM ers_users WHERE ers_username = ? AND ers_password = ?";
 			PreparedStatement ps = c.prepareStatement(sql);
 			ps.setString(1, username);
 			ps.setString(2, password);
-
+			// i am here
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
 				return extractUser(rs);
